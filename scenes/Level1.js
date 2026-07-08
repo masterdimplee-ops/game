@@ -122,7 +122,23 @@ class Level1 extends Phaser.Scene {
             this.player,
             this.platforms
         );
+        
+this.score = 0;
+this.lives = 3;
 
+this.scoreText = this.add.text(20, 20, "Score: 0", {
+    fontSize: "22px",
+    color: "#ffffff"
+});
+
+this.lifeText = this.add.text(20, 50, "❤️❤️❤️", {
+    fontSize: "22px"
+});
+
+this.levelText = this.add.text(650, 20, "Level 1", {
+    fontSize: "22px",
+    color: "#ffffff"
+});
 
 
         // ====================
