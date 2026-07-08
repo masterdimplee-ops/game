@@ -18,16 +18,46 @@ class Level1 extends Phaser.Scene {
     create() {
 
 
-        // membuat platform
-        this.platforms = this.physics.add.staticGroup();
+        // buat texture platform
+        let graphics = this.make.graphics({
+            x:0,
+            y:0,
+            add:false
+        });
+
+
+        graphics.fillStyle(0x00aa00);
+
+        graphics.fillRect(
+            0,
+            0,
+            200,
+            30
+        );
+
+
+        graphics.generateTexture(
+            "ground",
+            200,
+            30
+        );
+
+
+        graphics.destroy();
+
+
+
+        this.platforms =
+        this.physics.add.staticGroup();
+
 
 
         this.platforms.create(
             400,
             430,
-            null
+            "ground"
         )
-        .setDisplaySize(800,40)
+        .setScale(4,1)
         .refreshBody();
 
 
@@ -35,26 +65,20 @@ class Level1 extends Phaser.Scene {
         this.platforms.create(
             250,
             320,
-            null
-        )
-        .setDisplaySize(200,20)
-        .refreshBody();
-
+            "ground"
+        );
 
 
         this.platforms.create(
             600,
             230,
-            null
-        )
-        .setDisplaySize(200,20)
-        .refreshBody();
+            "ground"
+        );
 
 
 
-        // player
-
-        this.player = this.physics.add.sprite(
+        this.player =
+        this.physics.add.sprite(
             100,
             250,
             "player"
@@ -67,8 +91,6 @@ class Level1 extends Phaser.Scene {
 
 
 
-        // tabrakan
-
         this.physics.add.collider(
             this.player,
             this.platforms
@@ -76,11 +98,8 @@ class Level1 extends Phaser.Scene {
 
 
 
-        // keyboard
-
         this.cursors =
         this.input.keyboard.createCursorKeys();
-
 
     }
 
@@ -101,7 +120,7 @@ class Level1 extends Phaser.Scene {
 
         }
 
-        else {
+        else{
 
             this.player.setVelocityX(0);
 
@@ -117,7 +136,6 @@ class Level1 extends Phaser.Scene {
             this.player.setVelocityY(-450);
 
         }
-
 
     }
 
