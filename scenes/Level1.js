@@ -195,13 +195,12 @@ this.levelText = this.add.text(650, 20, "Level 1", {
             }
         );
 
-
         this.physics.pause();
 
+        this.time.delayedCall(1500, () => {
+            this.scene.start("Level2");
 
-        // nanti pindah Level2
-
-    }
+        });
 
 
 
