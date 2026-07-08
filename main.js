@@ -35,11 +35,12 @@ const config = {
     },
 
 
-    scene: [
+  scene: [
 
-        Level1
+    Menu,
+    Level1
 
-    ]
+]
 
 };
 
