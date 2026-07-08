@@ -1,3 +1,0 @@
-MINI FABIAN ADVENTURE
-
-       PLAY
