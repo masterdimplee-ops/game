@@ -1,41 +1,43 @@
 const config = {
     type: Phaser.AUTO,
 
-    width: 900,
-    height: 500,
-
     parent: "game",
+
+    width: 800,
+    height: 450,
+
+    scale: {
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH
+    },
 
     physics: {
         default: "arcade",
         arcade: {
-            gravity: {
-                y: 800
-            },
+            gravity: { y: 900 },
             debug: false
         }
     },
 
     scene: {
-        preload: preload,
-        create: create,
-        update: update
+        preload,
+        create,
+        update
     }
 };
 
-
 const game = new Phaser.Game(config);
-
 
 let player;
 let platforms;
 let cursors;
 
+let moveLeft = false;
+let moveRight = false;
+let jump = false;
 
-// Load aset
 function preload() {
 
-    // karakter sementara (kotak)
     this.load.image(
         "player",
         "https://labs.phaser.io/assets/sprites/phaser-dude.png"
@@ -43,107 +45,105 @@ function preload() {
 
 }
 
-
-// Membuat dunia game
 function create() {
 
+    // ======================
+    // Membuat tekstur platform
+    // ======================
 
-    // membuat platform
+    const graphics = this.make.graphics({ x: 0, y: 0, add: false });
+
+    graphics.fillStyle(0x3cb043);
+
+    graphics.fillRect(0, 0, 200, 30);
+
+    graphics.generateTexture("ground", 200, 30);
+
+    // ======================
+
     platforms = this.physics.add.staticGroup();
 
+    platforms.create(400, 435, "ground").setDisplaySize(800, 30).refreshBody();
 
-    platforms.create(
-        450,
-        480,
-        null
-    )
-    .setDisplaySize(900,40)
-    .refreshBody();
+    platforms.create(220, 330, "ground");
 
+    platforms.create(600, 240, "ground");
 
+    player = this.physics.add.sprite(80, 300, "player");
 
-    platforms.create(
-        300,
-        350,
-        null
-    )
-    .setDisplaySize(200,20)
-    .refreshBody();
-
-
-
-    platforms.create(
-        650,
-        250,
-        null
-    )
-    .setDisplaySize(200,20)
-    .refreshBody();
-
-
-
-    // player
-    player = this.physics.add.sprite(
-        100,
-        300,
-        "player"
-    );
-
-
-    player.setScale(0.8);
-
-    player.setBounce(0.2);
+    player.setBounce(0.1);
 
     player.setCollideWorldBounds(true);
 
+    this.physics.add.collider(player, platforms);
 
-
-    // collision player dengan platform
-    this.physics.add.collider(
-        player,
-        platforms
-    );
-
-
-
-    // keyboard
     cursors = this.input.keyboard.createCursorKeys();
+
+    // ======================
+    // Tombol Android
+    // ======================
+
+    const leftBtn = document.getElementById("left");
+    const rightBtn = document.getElementById("right");
+    const jumpBtn = document.getElementById("jump");
+
+    if (leftBtn) {
+
+        leftBtn.addEventListener("touchstart", () => moveLeft = true);
+        leftBtn.addEventListener("touchend", () => moveLeft = false);
+
+        leftBtn.addEventListener("mousedown", () => moveLeft = true);
+        leftBtn.addEventListener("mouseup", () => moveLeft = false);
+
+    }
+
+    if (rightBtn) {
+
+        rightBtn.addEventListener("touchstart", () => moveRight = true);
+        rightBtn.addEventListener("touchend", () => moveRight = false);
+
+        rightBtn.addEventListener("mousedown", () => moveRight = true);
+        rightBtn.addEventListener("mouseup", () => moveRight = false);
+
+    }
+
+    if (jumpBtn) {
+
+        jumpBtn.addEventListener("touchstart", () => jump = true);
+        jumpBtn.addEventListener("touchend", () => jump = false);
+
+        jumpBtn.addEventListener("mousedown", () => jump = true);
+        jumpBtn.addEventListener("mouseup", () => jump = false);
+
+    }
 
 }
 
-
-// Update setiap frame
 function update() {
 
+    let speed = 250;
 
-    if(cursors.left.isDown){
+    if (cursors.left.isDown || moveLeft) {
 
-        player.setVelocityX(-250);
-
-    }
-
-    else if(cursors.right.isDown){
-
-        player.setVelocityX(250);
+        player.setVelocityX(-speed);
 
     }
 
-    else{
+    else if (cursors.right.isDown || moveRight) {
+
+        player.setVelocityX(speed);
+
+    }
+
+    else {
 
         player.setVelocityX(0);
 
     }
 
+    if ((cursors.up.isDown || jump) && player.body.blocked.down) {
 
-
-    // lompat
-
-    if(
-        cursors.up.isDown &&
-        player.body.touching.down
-    ){
-
-        player.setVelocityY(-450);
+        player.setVelocityY(-500);
 
     }
 
