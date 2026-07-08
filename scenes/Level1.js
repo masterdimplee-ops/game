@@ -18,7 +18,29 @@ class Level1 extends Phaser.Scene {
     create() {
 
 
-        // buat texture platform
+        // ====================
+        // SCORE
+        // ====================
+
+        this.score = 0;
+
+
+        this.scoreText = this.add.text(
+            20,
+            20,
+            "Score: 0",
+            {
+                fontSize:"24px",
+                fill:"#ffffff"
+            }
+        );
+
+
+        // ====================
+        // PLATFORM
+        // ====================
+
+
         let graphics = this.make.graphics({
             x:0,
             y:0,
@@ -77,6 +99,11 @@ class Level1 extends Phaser.Scene {
 
 
 
+        // ====================
+        // PLAYER
+        // ====================
+
+
         this.player =
         this.physics.add.sprite(
             100,
@@ -98,14 +125,71 @@ class Level1 extends Phaser.Scene {
 
 
 
+        // ====================
+        // FINISH FLAG
+        // ====================
+
+
+        this.finish =
+        this.add.rectangle(
+            750,
+            370,
+            30,
+            100,
+            0xff0000
+        );
+
+
+        this.physics.add.existing(
+            this.finish,
+            true
+        );
+
+
+
+        this.physics.add.overlap(
+            this.player,
+            this.finish,
+            this.completeLevel,
+            null,
+            this
+        );
+
+
+
+        // keyboard
+
         this.cursors =
         this.input.keyboard.createCursorKeys();
+
 
     }
 
 
 
-    update() {
+    completeLevel(){
+
+        this.add.text(
+            250,
+            150,
+            "LEVEL COMPLETE!",
+            {
+                fontSize:"40px",
+                fill:"#ffff00"
+            }
+        );
+
+
+        this.physics.pause();
+
+
+        // nanti pindah Level2
+
+    }
+
+
+
+    update(){
 
 
         if(this.cursors.left.isDown){
@@ -136,6 +220,7 @@ class Level1 extends Phaser.Scene {
             this.player.setVelocityY(-450);
 
         }
+
 
     }
 
