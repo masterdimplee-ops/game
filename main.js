@@ -40,7 +40,8 @@ const config = {
     Boot,
     Menu,
     Level1,
-    Level2       
+    Level2,
+    Level3
 ]
 
 };
