@@ -37,9 +37,9 @@ const config = {
 
   scene: [
 
+    Boot,
     Menu,
-    Level1,
-    Level2
+    Level1
 ]
 
 };
