@@ -22,9 +22,6 @@ class Level1 extends Phaser.Scene {
         // SCORE
         // ====================
 
-        this.score = 0;
-
-
         this.scoreText = this.add.text(
             20,
             20,
@@ -116,13 +113,6 @@ class Level1 extends Phaser.Scene {
             this.platforms
         );
         
-this.score = 0;
-this.lives = 3;
-
-this.scoreText = this.add.text(20, 20, "Score: 0", {
-    fontSize: "22px",
-    color: "#ffffff"
-});
 
 this.lifeText = this.add.text(20, 50, "❤️❤️❤️", {
     fontSize: "22px"
@@ -193,14 +183,11 @@ this.levelText = this.add.text(650, 20, "Level 1", {
         this.time.delayedCall(1500, () => {
             this.scene.start("Level2");
 
-        });
-
-
+    });
+    }
 
     update(){
 
-
             this.player.update(this.cursors);
 
-}
 }
