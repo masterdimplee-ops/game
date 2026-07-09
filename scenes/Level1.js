@@ -104,18 +104,11 @@ class Level1 extends Phaser.Scene {
         // ====================
 
 
-        this.player =
-        this.physics.add.sprite(
+        this.player = new Player(
+            this,
             100,
-            250,
-            "player"
+            250
         );
-
-
-        this.player.setBounce(0.2);
-
-        this.player.setCollideWorldBounds(true);
-
 
 
         this.physics.add.collider(
@@ -207,36 +200,6 @@ this.levelText = this.add.text(650, 20, "Level 1", {
     update(){
 
 
-        if(this.cursors.left.isDown){
-
-            this.player.setVelocityX(-250);
-
-        }
-
-        else if(this.cursors.right.isDown){
-
-            this.player.setVelocityX(250);
-
-        }
-
-        else{
-
-            this.player.setVelocityX(0);
-
-        }
-
-
-
-        if(
-            this.cursors.up.isDown &&
-            this.player.body.blocked.down
-        ){
-
-            this.player.setVelocityY(-450);
-
-        }
-
-
-    }
+            this.player.update(this.cursors);
 
 }
