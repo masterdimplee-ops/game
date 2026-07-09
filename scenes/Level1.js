@@ -128,7 +128,7 @@ class Level1 extends Phaser.Scene {
         this.add.text(
             250,
             150,
-            "LEVEL COMPLETE!",
+            "LEVEL 1 COMPLETE!",
             {
                 fontSize: "40px",
                 color: "#ffff00"
