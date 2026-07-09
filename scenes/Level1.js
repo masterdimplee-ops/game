@@ -203,3 +203,4 @@ this.levelText = this.add.text(650, 20, "Level 1", {
             this.player.update(this.cursors);
 
 }
+}
