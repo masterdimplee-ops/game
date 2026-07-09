@@ -105,7 +105,7 @@ class Level4 extends Phaser.Scene {
         this.physics.pause();
 
         this.time.delayedCall(1500, () => {
-            this.scene.start("Menu");
+            this.scene.start("Level5");
         });
 
     }
