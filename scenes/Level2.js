@@ -177,15 +177,15 @@ class Level2 extends Phaser.Scene {
             }
         );
 
-
         this.physics.pause();
 
+        this.time.delayedCall(1500, () => {
+            this.scene.start("Level3");
+        });
 
     }
 
-
-
-    update(){
+    update() {
 
         this.player.update(this.cursors);
 
